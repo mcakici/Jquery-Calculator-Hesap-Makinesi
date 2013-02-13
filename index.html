@@ -1,0 +1,208 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Hesap Makinesi</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<!-- Yazı Tipi -->
+<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,700,800" rel="stylesheet" type="text/css">
+<!-- Jquery Kütüphanesi -->
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+
+<script type="text/javascript" src="hesapmak.js"></script>
+<style type="text/css">
+	body{
+	margin:0; padding:0;
+	font-family: 'Open Sans', sans-serif;
+	background:#D1D1D1 url('strip.png') repeat;
+	}
+	#container{
+	width:300px;
+	margin:0 auto;	
+	height:332px;
+	padding:10px;
+	margin-top:80px;
+	position:relative;
+	
+	background-color:#FBFBFB;
+
+	border:1px solid #888;
+	-moz-border-radius:12px;
+	-ms-border-radius:12px;
+	-o-border-radius:12px;
+	-webkit-border-radius:12px;
+	border-radius:12px;
+	
+	}
+	
+	#sayilar,#operatorler,#ustoperatorler,#islemalani{
+	-webkit-user-select:none;
+	-moz-user-select:none;	
+	cursor:pointer;
+	}
+	
+	#sayilar div,#operatorler div,#ustoperatorler div{	
+	transition: background .25s ease-in-out;
+   -moz-transition: background .25s ease-in-out;
+   -webkit-transition: background .25s ease-in-out;
+	}
+	
+	
+	#sayilar{
+	width:180px;
+	text-align:center;
+	float:left;
+	}
+	#sayilar div{
+	background-color:#F3F3F3;
+	padding:4px 20px;
+	margin-bottom:3px;
+	margin-right:3px;
+	float:left;
+	min-width:15px;
+	min-height:5px;
+	font-weight:bold;
+	font-size:25px;
+	color:#333;
+	border:solid 1px #f0f0f0;
+	
+	-moz-border-radius:3px;
+	-ms-border-radius:3px;
+	-o-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+	
+	}
+	#sayilar div:hover{
+	color:#F1F1F1;
+	background-color: #AF2B26;
+    background-image: linear-gradient(to bottom, #AF2B26 0px, #942422 100%);
+	}
+	
+	
+	
+	#operatorler{
+	width:120px;
+	text-align:center;
+	float:right;
+	margin:0; padding:0;
+	}
+	#operatorler div{
+
+
+	background-color:#d9d9d9;
+	padding:.22em 15px;
+	margin-top:0px;
+	margin-bottom:2px;
+	margin-right:3px;
+	float:left;
+	min-width:25px;
+	line-height:34px;
+	height:34px;
+	
+	font-weight:bold;
+	font-size:20px;
+	color:#333;
+	border:solid 1px #f0f0f0;
+	-moz-border-radius:3px;
+	-ms-border-radius:3px;
+	-o-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+	
+	
+	}
+	#operatorler div:hover{
+	color:#F1F1F1;
+	background-color: #AF2B26;
+    background-image: linear-gradient(to bottom, #AF2B26 0px, #942422 100%);
+	}
+	
+	/* Üst operatörler*/
+	#ustoperatorler{
+	width:300px;
+	text-align:center;
+	float:left;
+	}
+	#ustoperatorler div{
+	background-color:#d9d9d9;
+	padding:4px 15px;
+	margin-bottom:3px;
+	margin-right:3px;
+	float:left;
+	min-width:25px;
+	min-height:5px;
+	font-weight:bold;
+	font-size:20px;
+	color:#333;
+	border:solid 1px #f0f0f0;
+	float:left;
+	-moz-border-radius:3px;
+	-ms-border-radius:3px;
+	-o-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+
+	}
+	#ustoperatorler div:hover{
+	color:#F1F1F1;
+	background-color: #AF2B26;
+    background-image: linear-gradient(to bottom, #AF2B26 0px, #942422 100%);
+	}
+	
+	div.hover{
+	color:#F1F1F1;
+	background-color: #AF2B26;
+    background-image: linear-gradient(to bottom, #AF2B26 0px, #942422 100%);
+	}
+
+</style>
+</head>
+
+<body>
+<div id="container">
+<div style="font-weight:bold;">Pasio FX-KPLMCM2600</div>
+<div id="islemalani" style="width:285px; padding:5px; border:1px solid #ccc; margin:5px 0; background-color:#f1f1f1;">
+<div style="text-align:right; font-weight:bold;">= <span id="islemsonuc"></span></div>
+
+<div style="width:285px; height:35px; line-height:35px; font-size:18px; max-height:35px; overflow:hidden; position:relative;">
+<div id="isl" style="width:5000px; position:absolute; right:0; line-height:35px; height:35px; text-align:right;"></div>
+</div>
+</div>
+<!-- Üst operatorler-->
+<div id="ustoperatorler">
+<div id="usbul" rel="usbul">&times;<sup style="font-size:8px;">y</sup></div>
+<div id="isaretdegis" rel="isaretdegis">+&nbsp;-</div>
+<div id="clear" rel="8">←</div>
+<div id="reset" rel="46" style="width:85px;" class="fade">Reset</div>
+</div>
+<!-- Sayma Sayıları-->
+<div id="sayilar">
+<div id="b7" rel="103">7</div>
+<div id="b8" rel="104">8</div>
+<div id="b9" rel="105">9</div>
+<div id="b4" rel="100">4</div>
+<div id="b5" rel="101">5</div>
+<div id="b6" rel="102">6</div>
+<div id="b1" rel="97">1</div>
+<div id="b2" rel="98">2</div>
+<div id="b3" rel="99">3</div>
+<div id="b0" rel="96" style="width:75px;">0</div>
+<div id="virgul" rel="110">,</div>
+</div>
+<!-- Sağ operatörler-->
+<div id="operatorler">
+<div id="topla" rel="107">+</div>
+<div id="cikar" rel="109">-</div>
+<div id="carp" rel="106">&times;</div>
+<div id="bol" rel="111">&divide;</div>
+<div id="yuzde" rel="yuzde">%</div>
+<div id="karekok" rel="karekok">&#x221a;</div>
+<div id="esittir" rel="13" style="width:85px;">=</div>
+</div>
+<div style="font-size:10px; color:#333;  position:absolute; bottom:-20px; right:20px;">Copyright &copy;2012-2013 <b>Mustafa Çakıcı</b> | glikoz@live.com</div>
+</div>
+
+</body>
+</html>
